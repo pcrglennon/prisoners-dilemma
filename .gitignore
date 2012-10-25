@@ -1,3 +1,2 @@
-*.txt
-*.gif
+# ignore copies of java files
 *.java~
