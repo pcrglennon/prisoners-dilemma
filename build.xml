@@ -1,0 +1,19 @@
+<project name="313_Project" basedir=".">
+
+  <property name="src" location="src"/>
+  <property name="build" location="build"/>
+
+  <target name="init">
+    <tstamp/>
+    <mkdir dir="${build}"/>
+  </target>
+
+  <target name="compile" depends="init" description="compile the source">
+    <javac srcdir="${src}" destdir="${build}"/>
+  </target>
+
+  <target name="clean" description="delete old build folder">
+    <delete dir="${build}"/>
+  </target>
+
+</project>
