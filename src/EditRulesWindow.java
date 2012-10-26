@@ -1,9 +1,11 @@
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.BorderLayout;
+import java.awt.Container;
 
 import javax.swing.*;
 
-public class EditRulesWindow extends JFrame implements ActionListener {
+public class EditRulesWindow extends JFrame {
+    
+    Container panel;
 
     Player player;
 
@@ -24,14 +26,18 @@ public class EditRulesWindow extends JFrame implements ActionListener {
 	setSize(400,700);
 	setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
+	panel = getContentPane();
+
 	editRulesPanel = new EditRulesPanel(player);
-	setContentPane(editRulesPanel);
+
+	panel.add(Box.createVerticalStrut(20), BorderLayout.PAGE_START);
+	panel.add(Box.createHorizontalStrut(20), BorderLayout.LINE_START);
+
+	panel.add(editRulesPanel, BorderLayout.CENTER);
+
+	panel.add(Box.createHorizontalStrut(20), BorderLayout.LINE_END);
+	panel.add(Box.createVerticalStrut(20), BorderLayout.PAGE_END);
 
 	pack();
     }
-
-    public void actionPerformed(ActionEvent e) {
-
-    }
-
 }

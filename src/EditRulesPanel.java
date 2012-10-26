@@ -72,7 +72,7 @@ class NewRulePanel extends JPanel implements ActionListener {
 
     private JPanel addRuleFormatTwoPanel;
     private JLabel alwaysLabel;
-    private JComboBox<String> defectCooperateBox;
+    private JComboBox<String> ruleOneMoveBox;
 
     public NewRulePanel() {
 	super();
@@ -91,18 +91,23 @@ class NewRulePanel extends JPanel implements ActionListener {
 	alwaysLabel = new JLabel("Always");
 	rfTwoPanel.add(alwaysLabel, BorderLayout.PAGE_START);
 	
+	String[] moveList = {"Cooperate", "Defect", "Opp. Prev.", "! Opp. Prev.", "Your Prev.", "! Your Prev", "Anything"};
+	ruleOneMoveBox = new JComboBox<String>(moveList);
+	rfTwoPanel.add(ruleOneMoveBox, BorderLayout.CENTER);
+	add(rfTwoPanel);
+
 	addRuleTwoB = new JButton("Add");
 	addRuleTwoB.addActionListener(this);
 	add(addRuleTwoB);
-	
-	String[] moveList = {"Cooperate", "Defect", "Opp. Prev.", "! Opp. Prev.", "Your Prev.", "! Your Prev", "Anything"};
-	defectCooperateBox = new JComboBox<String>(moveList);
-	rfTwoPanel.add(defectCooperateBox, BorderLayout.CENTER);
-	add(rfTwoPanel);
     }
 
     public void actionPerformed(ActionEvent e) {
-
+	if(e.getSource() == addRuleOneB) {
+	    System.out.println(rfOnePanel.getRuleString());
+	}
+	if(e.getSource() == addRuleTwoB) {
+	    System.out.println((String)ruleOneMoveBox.getSelectedItem());
+	}
     }
 
     /**
