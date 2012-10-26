@@ -16,8 +16,8 @@ public class Game {
     private String printString;
     private int roundTotal;
     public Game(){
-	p1 = new Player();
-	p2 = new Player();
+	p1 = new Player("row");
+	p2 = new Player("column");
     }
 	
     /**
@@ -86,11 +86,11 @@ public class Game {
 	return true;
     }
 
-    public Player getPlayerOne() {
+    public Player getRowPlayer() {
 	return p1;
     }
 
-    public Player getPlayerTwo() {
+    public Player getColumnPlayer() {
 	return p2;
     }
 	
@@ -185,7 +185,7 @@ public class Game {
      */
     public void printDataToFile(){
 	try {
-	    File file = new File("../media/gameOutput.txt");
+	    File file = new File("media/gameOutput.txt");
  
 	    // if file doesnt exists, then create it
 	    if (!file.exists()) {

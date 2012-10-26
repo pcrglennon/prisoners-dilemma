@@ -13,11 +13,8 @@ import javax.swing.border.Border;
 public class EditRulesPanel extends JPanel {
 
     private Player player;
-    private int playerNum;
 
     private JLabel editRulesLabel;
-
-    private JLabel playerNumLabel;
 
     private JPanel ruleListPanel;
     private Border ruleListPanelBorder;
@@ -27,17 +24,16 @@ public class EditRulesPanel extends JPanel {
     private NewRulePanel newRulePanel;
     private Border newRulePanelBorder;
     
-    public EditRulesPanel(Player player, int playerNum) {
+    public EditRulesPanel(Player player) {
 	super();
 	this.player = player;
-	this.playerNum = playerNum;
 
 	setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
 	Font labelFont = new Font("SansSerif", Font.BOLD, 18);
 	editRulesLabel = new JLabel();
 	editRulesLabel.setFont(labelFont);
-	editRulesLabel.setText("Edit P" + playerNum + " Rules");
+	editRulesLabel.setText("Edit " + player.getID() + " Player's Rules");
 	editRulesLabel.setAlignmentX(Component.TOP_ALIGNMENT);
 	editRulesLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -76,7 +72,7 @@ class NewRulePanel extends JPanel implements ActionListener {
 
     private JPanel addRuleFormatTwoPanel;
     private JLabel alwaysLabel;
-    private JComboBox<String> defectCooperateBox;
+    private JComboBox<String> ruleOneMoveBox;
 
     public NewRulePanel() {
 	super();
@@ -95,18 +91,23 @@ class NewRulePanel extends JPanel implements ActionListener {
 	alwaysLabel = new JLabel("Always");
 	rfTwoPanel.add(alwaysLabel, BorderLayout.PAGE_START);
 	
+	String[] moveList = {"Cooperate", "Defect", "Opp. Prev.", "! Opp. Prev.", "Your Prev.", "! Your Prev", "Anything"};
+	ruleOneMoveBox = new JComboBox<String>(moveList);
+	rfTwoPanel.add(ruleOneMoveBox, BorderLayout.CENTER);
+	add(rfTwoPanel);
+
 	addRuleTwoB = new JButton("Add");
 	addRuleTwoB.addActionListener(this);
 	add(addRuleTwoB);
-	
-	String[] moveList = {"Cooperate", "Defect", "Opp. Prev.", "! Opp. Prev.", "Your Prev.", "! Your Prev", "Anything"};
-	defectCooperateBox = new JComboBox<String>(moveList);
-	rfTwoPanel.add(defectCooperateBox, BorderLayout.CENTER);
-	add(rfTwoPanel);
     }
 
     public void actionPerformed(ActionEvent e) {
-
+	if(e.getSource() == addRuleOneB) {
+	    System.out.println(rfOnePanel.getRuleString());
+	}
+	if(e.getSource() == addRuleTwoB) {
+	    System.out.println((String)ruleOneMoveBox.getSelectedItem());
+	}
     }
 
     /**
