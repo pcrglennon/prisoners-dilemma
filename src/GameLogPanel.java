@@ -20,6 +20,7 @@ public class GameLogPanel extends JPanel {
     public GameLogPanel() {
 	super();
 	
+	setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 	setBackground(new Color(180, 194, 181));
 
 	gameLogLabel = new JLabel();
@@ -29,7 +30,7 @@ public class GameLogPanel extends JPanel {
 	gameLogLabel.setAlignmentY(Component.TOP_ALIGNMENT);
 	gameLogLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-	add(gameLogLabel, BorderLayout.PAGE_START);
+	add(gameLogLabel);
 
 	gameLog = new JTextArea();
 	gameLog.setEditable(false);
@@ -38,7 +39,7 @@ public class GameLogPanel extends JPanel {
 	makeGameLogPlaceholder();
 	
 	gameLogScrollPane = new JScrollPane(gameLog, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-	gameLogScrollPane.setPreferredSize(new Dimension(220, 720));
+	gameLogScrollPane.setPreferredSize(new Dimension(225, 720));
 	
 	add(gameLogScrollPane);
 	gameLog.setCaretPosition(0);
@@ -52,7 +53,7 @@ public class GameLogPanel extends JPanel {
 	StringBuilder glp = new StringBuilder();
 	BufferedReader br = null;
 	try {
-	    br = new BufferedReader(new FileReader("../media/GameLogPlaceholder.txt"));
+	    br = new BufferedReader(new FileReader("media/GameLogPlaceholder.txt"));
 	    String line = null;
 	    while((line = br.readLine()) != null) {
 		glp.append(line + "\n");

@@ -1,2 +1,4 @@
 # ignore copies of java files
 *.java~
+# ignore the build folder
+build/

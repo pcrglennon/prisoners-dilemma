@@ -4,24 +4,23 @@ Welcome to Prisoners Dilemma
 
 ------Player Rulesets------
 Player Row:
-1) Always [Anything].
+1) Always [Cooperate].
 
 Player Column:
-1) [If]  [Opp.] [Defect] [At least] [100]% of the time over the previous [2] move(s), do [Defect] for the next [1] move(s).
-2) Always [Cooperate].
+1) Always [Cooperate].
 
 ---------------------------
 
 -------Round 1-------
 
 Player Row
-Rule Fired      1) Always [Anything].
+Rule Fired      1) Always [Cooperate].
 Move             cooperate
 Points Won    8
 Total Points   8
 
 Player Column
-Rule Fired      2) Always [Cooperate].
+Rule Fired      1) Always [Cooperate].
 Move             cooperate
 Points Won    8
 Total Points   8
@@ -29,129 +28,129 @@ Total Points   8
 -------Round 2-------
 
 Player Row
-Rule Fired      1) Always [Anything].
-Move             defect
-Points Won    13
-Total Points   21
-
-Player Column
-Rule Fired      2) Always [Cooperate].
-Move             cooperate
-Points Won    0
-Total Points   8
-
--------Round 3-------
-
-Player Row
-Rule Fired      1) Always [Anything].
-Move             cooperate
-Points Won    8
-Total Points   29
-
-Player Column
-Rule Fired      2) Always [Cooperate].
+Rule Fired      1) Always [Cooperate].
 Move             cooperate
 Points Won    8
 Total Points   16
 
--------Round 4-------
-
-Player Row
-Rule Fired      1) Always [Anything].
+Player Column
+Rule Fired      1) Always [Cooperate].
 Move             cooperate
 Points Won    8
-Total Points   37
+Total Points   16
 
-Player Column
-Rule Fired      2) Always [Cooperate].
+-------Round 3-------
+
+Player Row
+Rule Fired      1) Always [Cooperate].
 Move             cooperate
 Points Won    8
 Total Points   24
 
--------Round 5-------
-
-Player Row
-Rule Fired      1) Always [Anything].
+Player Column
+Rule Fired      1) Always [Cooperate].
 Move             cooperate
 Points Won    8
-Total Points   45
+Total Points   24
 
-Player Column
-Rule Fired      2) Always [Cooperate].
+-------Round 4-------
+
+Player Row
+Rule Fired      1) Always [Cooperate].
 Move             cooperate
 Points Won    8
 Total Points   32
+
+Player Column
+Rule Fired      1) Always [Cooperate].
+Move             cooperate
+Points Won    8
+Total Points   32
+
+-------Round 5-------
+
+Player Row
+Rule Fired      1) Always [Cooperate].
+Move             cooperate
+Points Won    8
+Total Points   40
+
+Player Column
+Rule Fired      1) Always [Cooperate].
+Move             cooperate
+Points Won    8
+Total Points   40
 
 -------Round 6-------
 
 Player Row
-Rule Fired      1) Always [Anything].
-Move             defect
-Points Won    13
-Total Points   58
+Rule Fired      1) Always [Cooperate].
+Move             cooperate
+Points Won    8
+Total Points   48
 
 Player Column
-Rule Fired      2) Always [Cooperate].
+Rule Fired      1) Always [Cooperate].
 Move             cooperate
-Points Won    0
-Total Points   32
+Points Won    8
+Total Points   48
 
 -------Round 7-------
 
 Player Row
-Rule Fired      1) Always [Anything].
+Rule Fired      1) Always [Cooperate].
 Move             cooperate
 Points Won    8
-Total Points   66
+Total Points   56
 
 Player Column
-Rule Fired      2) Always [Cooperate].
+Rule Fired      1) Always [Cooperate].
 Move             cooperate
 Points Won    8
-Total Points   40
+Total Points   56
 
 -------Round 8-------
 
 Player Row
-Rule Fired      1) Always [Anything].
-Move             defect
-Points Won    13
-Total Points   79
+Rule Fired      1) Always [Cooperate].
+Move             cooperate
+Points Won    8
+Total Points   64
 
 Player Column
-Rule Fired      2) Always [Cooperate].
+Rule Fired      1) Always [Cooperate].
 Move             cooperate
-Points Won    0
-Total Points   40
+Points Won    8
+Total Points   64
 
 -------Round 9-------
 
 Player Row
-Rule Fired      1) Always [Anything].
+Rule Fired      1) Always [Cooperate].
 Move             cooperate
 Points Won    8
-Total Points   87
+Total Points   72
 
 Player Column
-Rule Fired      2) Always [Cooperate].
+Rule Fired      1) Always [Cooperate].
 Move             cooperate
 Points Won    8
-Total Points   48
+Total Points   72
 
 -------Round 10-------
 
 Player Row
-Rule Fired      1) Always [Anything].
-Move             defect
-Points Won    13
-Total Points   100
+Rule Fired      1) Always [Cooperate].
+Move             cooperate
+Points Won    8
+Total Points   80
 
 Player Column
-Rule Fired      2) Always [Cooperate].
+Rule Fired      1) Always [Cooperate].
 Move             cooperate
-Points Won    0
-Total Points   48
+Points Won    8
+Total Points   80
 
 
 
-Player Row is the winner!
+Tie. Good food, bad outcome.

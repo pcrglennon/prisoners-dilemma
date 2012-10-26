@@ -27,6 +27,8 @@ import java.util.Random;
  *
  */
 public class Player {
+    //ID of the player - either row or column
+    private String id;
     //Payoff for each combo (xCC = X cooperates and [opponent] cooperates. xCD = X cooperates and [opponent] defects)
     private int ruleCount, size, turns, curTurn, points, curReward, removeFlag, turnFlag; 
     private int[][] pointGrid; //used to hold point values and give Player its reward
@@ -44,7 +46,8 @@ public class Player {
     /**
      * Initializes the Player class. Receives necessary variables for point assignment.
      */
-    public Player(){
+    public Player(String id){
+	this.id = id;
 	size = 10;
 	ruleCount = 0;
 	rules = new int[size][];
@@ -411,6 +414,11 @@ public class Player {
     //-----------^^^---------RULE CREATION/ADDITION/DELETION----------^^^-------------//	
 	
     //-----------VVV-----------STRING RETRUNS FOR DISPLAY-------------VVV-------------//
+
+    public String getID() {
+	return id;
+    }
+    
     public int getPointCumChangeTurn(int i) {
 	return pointCumChange[i-1];
     }
