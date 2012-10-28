@@ -62,8 +62,8 @@ public class PlayerPanel extends JPanel implements ItemListener{
     }
 
     public void setupStrategyBox() {
-	String[] choices = {"Cooperate", "Defect", "Random", "Tit for Tat", "Tat for Tit", "Forgiving TfT"};
-	//String[] choices = {"Cooperate", "Defect", "Random", "Tit for Tat", "Tat for Tit", "Forgiving TfT", "Grim", "Prideful", "Average"};
+	//String[] choices = {"Cooperate", "Defect", "Random", "Tit for Tat", "Tat for Tit", "Forgiving TfT"};
+	String[] choices = {"Cooperate", "Defect", "Random", "Tit for Tat", "Tat for Tit", "Forgiving TfT", "Grim", "Prideful", "Average"};
 	strategyBox = new JComboBox<String>(choices);
 	strategyBox.addItemListener(this);
     }

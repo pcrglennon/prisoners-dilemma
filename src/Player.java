@@ -1,4 +1,5 @@
 import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.Queue;
 import java.util.Random;
 
@@ -30,13 +31,14 @@ public class Player {
     //ID of the player - either row or column
     private String id;
     //Payoff for each combo (xCC = X cooperates and [opponent] cooperates. xCD = X cooperates and [opponent] defects)
-    private int ruleCount, size, turns, curTurn, points, curReward, removeFlag, turnFlag; 
+    private int ruleCount, size, turns, curTurn, points, curReward; 
     private int[][] pointGrid; //used to hold point values and give Player its reward
     private int[] pointChangeHistory; //keeps track of points at every turn
     int[][] rules; //priority queue of rules that cannot exceed size variable
     String[] ruleString; //string list of all rules to be displayed in GUI
     private int[] pointCumChange; //keeps track of cumulative points
     private String[] whichRuleFired; 
+	private ArrayList ignoreRules;
     private boolean[] myMoves; //previous moves stored as boolean: true - cooperate / false - defect
     private boolean[] oppMoves; //previous moves stored as boolean: true - cooperate / false - defect
     private Queue<Boolean> futureMoves;	//future to be done
@@ -69,9 +71,9 @@ public class Player {
      * @param turns (int) number of turns that will be played in the game
      */
     public void setPayoffsAndTurns(int xCC, int xCD, int xDC, int xDD, int turns){
+	ignoreRules = new ArrayList();
 	points = 0;
 	curTurn = 0;
-	removeFlag=-1;
 	whichRuleFired = new String[turns];
  	pointChangeHistory = new int[turns];
 	myMoves = new boolean[turns];
@@ -120,7 +122,10 @@ public class Player {
 	int i=0;
 	if (futureMoves.size()==0){
 	    for (i=0;i<ruleCount;i++){
-		if(rules[i].length==9){ //here we get the right string to add
+		if (ignoreRules.contains(i)){
+			continue;
+		}	
+		else if(rules[i].length==9){ //here we get the right string to add
 		    if (evaluateRule0(rules[i])==true){
 			break;
 		    }
@@ -187,16 +192,9 @@ public class Player {
 	else if (specs[1]==1 && !(any3 || percentFlag)){
 	    doQueue = true;
 	}
-	else if (removeFlag!=-1 && curTurn!=turnFlag){
-	    System.out.println("RULE REMOVED DUE TO UNTIL");
-	    removeRule(specs[0]); //removes this rule from list
-	    removeFlag=-1;
-	}
 	//if we choose until and the condition is met, we want to delete the UNTIL rule and enact the next one in the queue
 	else if (specs[1]==1 && (any3 || percentFlag)){
-	    doQueue = true;
-	    removeFlag=specs[0];
-	    turnFlag=curTurn;
+		ignoreRules.add(specs[0]);
 	}
 	if (doQueue){
 	    queueMoves(move7, (specs[8]==-1) ? turns - curTurn : specs[8]); //7, 8 (if the input is -1, that means the rest of the game, if not, we give the actual input)
@@ -346,6 +344,15 @@ public class Player {
      */
     public void addRuleAndString(int[] newRule){
 	String newRuleString;
+	
+	//this is to make sure our priority is set correctly
+	if (newRule[0]>ruleCount){
+		newRule[0]=ruleCount;
+	}
+	if (newRule[0]<0){
+		newRule[0]=0;
+	} 
+	
 	if (newRule.length==9){ //here we get the right string to add
 	    newRuleString=RuleFactory.getRuleString(0, newRule);
 	}
