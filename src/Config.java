@@ -11,9 +11,9 @@ import java.awt.Font;
 
 public class Config {
 
-    public final static Dimension GAME_WINDOW_SIZE = new Dimension(700, 700);
-    public final static Dimension EDIT_RULES_WINDOW_SIZE = new Dimension(400, 700);
-    public final static Dimension HELP_WINDOW_SIZE = new Dimension(420, 700);
+    public final static Dimension GAME_WINDOW_SIZE = new Dimension(750, 750);
+    public final static Dimension EDIT_RULES_WINDOW_SIZE = new Dimension(400, 750);
+    public final static Dimension HELP_WINDOW_SIZE = new Dimension(420, 750);
 
     public final static Dimension GAMELOG_PREF_SIZE = new Dimension(GAME_WINDOW_SIZE.width / 3, GAME_WINDOW_SIZE.height);
     public final static Dimension PAYOFF_CELL_PREF_SIZE = new Dimension(105,40);

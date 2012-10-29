@@ -31,13 +31,13 @@ public class EditRulesWindow extends JFrame {
 
 	editRulesPanel = new EditRulesPanel(player);
 
-	panel.add(Box.createVerticalStrut(20), BorderLayout.PAGE_START);
-	panel.add(Box.createHorizontalStrut(20), BorderLayout.LINE_START);
+	panel.add(Box.createVerticalStrut(10), BorderLayout.PAGE_START);
+	panel.add(Box.createHorizontalStrut(10), BorderLayout.LINE_START);
 
 	panel.add(editRulesPanel, BorderLayout.CENTER);
 
-	panel.add(Box.createHorizontalStrut(20), BorderLayout.LINE_END);
-	panel.add(Box.createVerticalStrut(20), BorderLayout.PAGE_END);
+	panel.add(Box.createHorizontalStrut(10), BorderLayout.LINE_END);
+	panel.add(Box.createVerticalStrut(10), BorderLayout.PAGE_END);
 
 	pack();
     }

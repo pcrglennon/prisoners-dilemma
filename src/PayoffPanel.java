@@ -95,7 +95,8 @@ public class PayoffPanel extends JPanel implements FocusListener {
 }
 
 /**
- * Similar to NumericTextField from SelectionPanel.java
+ * Similar to the NumericTextField class, which was taken from:
+ * www.coderanch.com/how-to/java/NumericTextField
  */
 
 class PayoffCell extends JTextField {
