@@ -19,8 +19,6 @@ public class SelectionPanel extends JPanel {
 
     public SelectionPanel() {
 	super();
-
-	setBackground(new Color(180, 194, 181));
 	
 	ensurePDLabel = new JLabel("Ensure Prisoner's Dilemma:");
 	ensurePD = new JCheckBox();

@@ -23,10 +23,10 @@ public class PayoffPanel extends JPanel implements FocusListener {
 
 	setLayout(new GridLayout(3,3));
 
-	topLeft = new PayoffCell();
-	topRight = new PayoffCell();
-	bottomLeft = new PayoffCell();
-	bottomRight = new PayoffCell();
+	topLeft = new PayoffCell("8,8");
+	topRight = new PayoffCell("0,13");
+	bottomLeft = new PayoffCell("13,0");
+	bottomRight = new PayoffCell("3,3");
 
 	Font f = new Font("SansSerif", Font.BOLD, 20);
 	topLeft.setFont(f);
@@ -97,14 +97,27 @@ public class PayoffPanel extends JPanel implements FocusListener {
     }
 }
 
+/**
+ * Similar to NumericTextField from SelectionPanel.java
+ */
+
 class PayoffCell extends JTextField {
 
+    //Text inside a cell must match this format:
+    //1-3 digits (row payoff) followed by "," followed by 1-3 digits (column payoff)
     private final static Pattern FORMAT = Pattern.compile("^\\d{1,3},\\d{1,3}$");
     
-    public PayoffCell() {
+    private boolean autofill = true;
+
+    public PayoffCell(String payoffString) {
 	super();
+	setDocument(createDefaultModel());
 	setHorizontalAlignment(JTextField.CENTER);
 	setPreferredSize(new Dimension(105,40));
+	setText(payoffString);
+	//After autofilling with payoffString:
+	//require cell input to be validated (see PayoffCell.insertString)
+	autofill = false;
     }
 
     public boolean validateCell() {
@@ -115,12 +128,17 @@ class PayoffCell extends JTextField {
     }
 
     public int[] getPayoffs() {
+	//Validate the cell format first
+	if(!validateCell()) {
+	    return null;
+	}
 	String[] payoffStrings = getText().split(",");
 	int[] payoffs = new int[2];
 	try {
 	    payoffs[0] = Integer.parseInt(payoffStrings[0]);
 	    payoffs[1] = Integer.parseInt(payoffStrings[1]);
 	} catch (Exception e) {
+	    //Cell is empty
 	    payoffs = null;
 	}
 	return payoffs;
@@ -131,13 +149,17 @@ class PayoffCell extends JTextField {
 	return new PayoffDocument();
     }
 
-    private static class PayoffDocument extends PlainDocument {
+    private class PayoffDocument extends PlainDocument {
 	
-	private final static Pattern DIGITS = Pattern.compile("[\\d*,]");
+	private final Pattern DIGITS = Pattern.compile("[\\d*,]");
 	
 	@Override
 	public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
-	    if(str != null && DIGITS.matcher(str).matches()) {
+	    //Allow cell to be autofilled at initialization
+	    if(autofill) {
+		super.insertString(offs, str, a);
+	    }
+	    else if(str != null && DIGITS.matcher(str).matches()) {
 		super.insertString(offs, str, a);
 	    }
 	}

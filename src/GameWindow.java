@@ -7,39 +7,33 @@ import java.io.File;
 
 import java.util.ArrayList;
 
-import javax.swing.*;
 import javax.imageio.ImageIO;
+import javax.swing.*;
 
 public class GameWindow implements ActionListener {
-
-    /** GLOBALS */
 
     Game game;
 
     JFrame frame;
-    
     Container panel;
 
     Container gridPanel;
-
     PayoffPanel payoffPanel;
-
     SelectionPanel selectionPanel;
-
-    JPanel rightPanel;
-    CardLayout rightPanelLayout;
-
-    GameLogPanel gameLogPanel;
-    
     PlayerPanel p1Panel;
     PlayerPanel p2Panel;
 
+    GameLogPanel gameLogPanel;
+
     JPanel buttonPanel;
     JButton playB;
-    
-    JButton editP1RulesB;
-    JButton editP2RulesB;
-    JButton showGameLogB;
+    JButton editRowPlayerB;
+    JButton editColumnPlayerB;
+    JButton stratHelpB;
+    JButton pdHelpB;
+    JButton quitB;
+
+    private final static Color lightGreyColor = new Color(180, 194, 181);
 
     /** 
      * Constructor
@@ -60,57 +54,86 @@ public class GameWindow implements ActionListener {
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	
 	panel = frame.getContentPane();
-	panel.setBackground(Color.YELLOW);
 
+	setupGridPanel();
+
+	gameLogPanel = new GameLogPanel();
+	gameLogPanel.setPreferredSize(new Dimension(frame.getWidth() / 3, frame.getHeight()));
+	gameLogPanel.setBackground(lightGreyColor);
+
+	panel.add(gameLogPanel, BorderLayout.LINE_END);
+			     
+	setupButtonPanel();
+
+	frame.pack();
+	frame.setVisible(true);
+    }
+
+    /**
+     * Sets up the main grid - the player panels, the payoff matrix panel,
+     * the selection panel, and two placeholder panels (one of which holds
+     * the "Bearbones Game Theorists" image
+     */
+    private void setupGridPanel() {
 	gridPanel = new JPanel(new GridLayout(3,2));
 
-	JPanel ph1 = new JPanel();
-	ph1.setBackground(new Color(92, 86, 73));
+	JPanel imagePanel = new JPanel();
+	imagePanel.setBackground(new Color(92, 86, 73));
+	//Load the "Bearbones Game Theorists" Image
 	try {
 	    BufferedImage bearImage = ImageIO.read(new File("media/barebone.gif"));
-	    ph1.add(new JLabel(new ImageIcon(bearImage)));
+	    imagePanel.add(new JLabel(new ImageIcon(bearImage)));
 	} catch (Exception e) {
 	    e.printStackTrace();
 	}
-	gridPanel.add(ph1);
+	gridPanel.add(imagePanel);
 	p2Panel = new PlayerPanel(game.getColumnPlayer(), 2);
 	gridPanel.add(p2Panel);
 	p1Panel = new PlayerPanel(game.getRowPlayer(), 1);
 	gridPanel.add(p1Panel);
 	payoffPanel = new PayoffPanel();
 	gridPanel.add(payoffPanel);
-	JPanel ph2 = new JPanel();
-	ph2.setBackground(new Color(180, 194, 181));
-	gridPanel.add(ph2);
+	JPanel placeHolderPanel = new JPanel();
+	placeHolderPanel.setBackground(lightGreyColor);
+	gridPanel.add(placeHolderPanel);
 	selectionPanel = new SelectionPanel();
+	selectionPanel.setBackground(lightGreyColor);
 	gridPanel.add(selectionPanel);
 	
 	panel.add(gridPanel, BorderLayout.CENTER);
-
-	gameLogPanel = new GameLogPanel();
-	gameLogPanel.setPreferredSize(new Dimension(frame.getWidth() / 3, frame.getHeight()));
-
-	panel.add(gameLogPanel, BorderLayout.LINE_END);
-			     
+    }
+    
+    /**
+     * Sets up the the button panel - the play button, the strategy-editing
+     * buttons, and the help button
+     */
+    private void setupButtonPanel() {
 	buttonPanel = new JPanel();
-	buttonPanel.setBackground(new Color(180, 194, 181));
+	buttonPanel.setBackground(lightGreyColor);
 	buttonPanel.setLayout(new FlowLayout());
 	playB = new JButton("Play");
-	editP1RulesB = new JButton("Edit P1 Rules");
-	editP2RulesB = new JButton("Edit P2 Rules");
-
+	editRowPlayerB = new JButton("Edit Row Player");
+	editColumnPlayerB = new JButton("Edit Column Player");	
+	stratHelpB = new JButton("Strategy Help");
+	pdHelpB = new JButton("P.D. Help");
+	quitB = new JButton("Quit");
+	
 	playB.addActionListener(this);
-	editP1RulesB.addActionListener(this);
-	editP2RulesB.addActionListener(this);
-
+	editRowPlayerB.addActionListener(this);
+	editColumnPlayerB.addActionListener(this);
+	stratHelpB.addActionListener(this);
+	pdHelpB.addActionListener(this);
+	quitB.addActionListener(this);
+	
 	buttonPanel.add(playB);
-	buttonPanel.add(editP1RulesB);
-	buttonPanel.add(editP2RulesB);
+	buttonPanel.add(editRowPlayerB);
+	buttonPanel.add(editColumnPlayerB);
+	buttonPanel.add(Box.createHorizontalStrut(60));
+	buttonPanel.add(stratHelpB);
+	buttonPanel.add(pdHelpB);
+	buttonPanel.add(quitB);
 
 	panel.add(buttonPanel, BorderLayout.PAGE_END);
-
-	frame.pack();
-	frame.setVisible(true);
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -132,17 +155,27 @@ public class GameWindow implements ActionListener {
 		}
 	    }
 	}
-	
-	if(e.getSource() == editP1RulesB) {
+	if(e.getSource() == editRowPlayerB) {
 	    System.out.println("EDIT RULES P1");
 	    EditRulesWindow p1Window = new EditRulesWindow(game.getRowPlayer());
 	    p1Window.setVisible(true);
 	}
 
-	if(e.getSource() == editP2RulesB) {
+	if(e.getSource() == editColumnPlayerB) {
 	    System.out.println("EDIT RULES P2");
 	    EditRulesWindow p2Window = new EditRulesWindow(game.getColumnPlayer());
 	    p2Window.setVisible(true);
+	}
+	if(e.getSource() == stratHelpB) {
+	    HelpWindow helpWindow = new HelpWindow(HelpWindow.STRAT_HELP_TYPE);
+	    helpWindow.setVisible(true);
+	}
+	if(e.getSource() == pdHelpB) {
+	    HelpWindow helpWindow = new HelpWindow(HelpWindow.PD_HELP_TYPE);
+	    helpWindow.setVisible(true);
+	}
+	if(e.getSource() == quitB) {
+	    System.exit(0);
 	}
     }
 

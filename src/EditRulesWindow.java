@@ -24,7 +24,9 @@ public class EditRulesWindow extends JFrame {
 
     private void createFrame() {
 	setSize(400,700);
+	setTitle("Help Window");
 	setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	
 
 	panel = getContentPane();
 

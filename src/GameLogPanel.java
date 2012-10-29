@@ -21,7 +21,6 @@ public class GameLogPanel extends JPanel {
 	super();
 	
 	setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-	setBackground(new Color(180, 194, 181));
 
 	gameLogLabel = new JLabel();
 	Font labelFont = new Font("SansSerif", Font.BOLD, 18);
