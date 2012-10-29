@@ -19,7 +19,7 @@ public class PayoffPanel extends JPanel implements FocusListener {
     public PayoffPanel() {
 	super();
 
-	setBackground(new Color(92, 86, 73));
+	setBackground(Config.DARK_GRAY);
 
 	setLayout(new GridLayout(3,3));
 
@@ -28,37 +28,34 @@ public class PayoffPanel extends JPanel implements FocusListener {
 	bottomLeft = new PayoffCell("13,0");
 	bottomRight = new PayoffCell("3,3");
 
-	Font f = new Font("SansSerif", Font.BOLD, 20);
-	topLeft.setFont(f);
-	topRight.setFont(f);
-	bottomLeft.setFont(f);
-	bottomRight.setFont(f);
+	topLeft.setFont(Config.PAYOFF_FONT);
+	topRight.setFont(Config.PAYOFF_FONT);
+	bottomLeft.setFont(Config.PAYOFF_FONT);
+	bottomRight.setFont(Config.PAYOFF_FONT);
 
 	topLeft.addFocusListener(this);
 	topRight.addFocusListener(this);
 	bottomLeft.addFocusListener(this);
 	bottomRight.addFocusListener(this);
 
-	Color labelColor = new Color(227, 223, 216);
-
 	add(new JLabel(""));
 	JLabel cooperateLabelOne = new JLabel("Cooperate");
 	cooperateLabelOne.setAlignmentX(Component.CENTER_ALIGNMENT);
-	cooperateLabelOne.setForeground(labelColor);
+	cooperateLabelOne.setForeground(Config.LABEL_COLOR);
 	add(cooperateLabelOne);
 	JLabel defectLabelOne = new JLabel("Defect");
 	defectLabelOne.setAlignmentX(Component.CENTER_ALIGNMENT);
-	defectLabelOne.setForeground(labelColor);
+	defectLabelOne.setForeground(Config.LABEL_COLOR);
 	add(defectLabelOne);
 	JLabel cooperateLabelTwo = new JLabel("Cooperate");
 	cooperateLabelTwo.setAlignmentX(Component.CENTER_ALIGNMENT);
-	cooperateLabelTwo.setForeground(labelColor);
+	cooperateLabelTwo.setForeground(Config.LABEL_COLOR);
 	add(cooperateLabelTwo);
 	add(topLeft);
 	add(topRight);
 	JLabel defectLabelTwo = new JLabel("Defect");
 	defectLabelTwo.setAlignmentX(Component.CENTER_ALIGNMENT);
-	defectLabelTwo.setForeground(labelColor);
+	defectLabelTwo.setForeground(Config.LABEL_COLOR);
 	add(defectLabelTwo);
 	add(bottomLeft);
 	add(bottomRight);
@@ -113,7 +110,7 @@ class PayoffCell extends JTextField {
 	super();
 	setDocument(createDefaultModel());
 	setHorizontalAlignment(JTextField.CENTER);
-	setPreferredSize(new Dimension(105,40));
+	setPreferredSize(Config.PAYOFF_CELL_PREF_SIZE);
 	setText(payoffString);
 	//After autofilling with payoffString:
 	//require cell input to be validated (see PayoffCell.insertString)

@@ -33,8 +33,6 @@ public class GameWindow implements ActionListener {
     JButton pdHelpB;
     JButton quitB;
 
-    private final static Color lightGreyColor = new Color(180, 194, 181);
-
     /** 
      * Constructor
      */
@@ -50,7 +48,7 @@ public class GameWindow implements ActionListener {
 
     public void createAndShowGUI() {
 	frame = new JFrame("Prisoner's Dilemma Simulation");
-	frame.setSize(700, 700);
+	frame.setSize(Config.GAME_WINDOW_SIZE);
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	
 	panel = frame.getContentPane();
@@ -58,8 +56,8 @@ public class GameWindow implements ActionListener {
 	setupGridPanel();
 
 	gameLogPanel = new GameLogPanel();
-	gameLogPanel.setPreferredSize(new Dimension(frame.getWidth() / 3, frame.getHeight()));
-	gameLogPanel.setBackground(lightGreyColor);
+	gameLogPanel.setPreferredSize(Config.GAMELOG_PREF_SIZE);
+	gameLogPanel.setBackground(Config.LIGHT_GRAY);
 
 	panel.add(gameLogPanel, BorderLayout.LINE_END);
 			     
@@ -78,7 +76,7 @@ public class GameWindow implements ActionListener {
 	gridPanel = new JPanel(new GridLayout(3,2));
 
 	JPanel imagePanel = new JPanel();
-	imagePanel.setBackground(new Color(92, 86, 73));
+	imagePanel.setBackground(Config.DARK_GRAY);
 	//Load the "Bearbones Game Theorists" Image
 	try {
 	    BufferedImage bearImage = ImageIO.read(new File("media/barebone.gif"));
@@ -94,10 +92,10 @@ public class GameWindow implements ActionListener {
 	payoffPanel = new PayoffPanel();
 	gridPanel.add(payoffPanel);
 	JPanel placeHolderPanel = new JPanel();
-	placeHolderPanel.setBackground(lightGreyColor);
+	placeHolderPanel.setBackground(Config.LIGHT_GRAY);
 	gridPanel.add(placeHolderPanel);
 	selectionPanel = new SelectionPanel();
-	selectionPanel.setBackground(lightGreyColor);
+	selectionPanel.setBackground(Config.LIGHT_GRAY);
 	gridPanel.add(selectionPanel);
 	
 	panel.add(gridPanel, BorderLayout.CENTER);
@@ -109,7 +107,7 @@ public class GameWindow implements ActionListener {
      */
     private void setupButtonPanel() {
 	buttonPanel = new JPanel();
-	buttonPanel.setBackground(lightGreyColor);
+	buttonPanel.setBackground(Config.LIGHT_GRAY);
 	buttonPanel.setLayout(new FlowLayout());
 	playB = new JButton("Play");
 	editRowPlayerB = new JButton("Edit Row Player");
@@ -131,6 +129,7 @@ public class GameWindow implements ActionListener {
 	buttonPanel.add(Box.createHorizontalStrut(60));
 	buttonPanel.add(stratHelpB);
 	buttonPanel.add(pdHelpB);
+	buttonPanel.add(Box.createHorizontalStrut(40));
 	buttonPanel.add(quitB);
 
 	panel.add(buttonPanel, BorderLayout.PAGE_END);

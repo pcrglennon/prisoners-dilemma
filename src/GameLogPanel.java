@@ -1,8 +1,5 @@
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 
@@ -23,8 +20,7 @@ public class GameLogPanel extends JPanel {
 	setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
 	gameLogLabel = new JLabel();
-	Font labelFont = new Font("SansSerif", Font.BOLD, 18);
-	gameLogLabel.setFont(labelFont);
+	gameLogLabel.setFont(Config.LABEL_FONT);
 	gameLogLabel.setText("Game Log:");
 	gameLogLabel.setAlignmentY(Component.TOP_ALIGNMENT);
 	gameLogLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -38,7 +34,7 @@ public class GameLogPanel extends JPanel {
 	makeGameLogPlaceholder();
 	
 	gameLogScrollPane = new JScrollPane(gameLog, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-	gameLogScrollPane.setPreferredSize(new Dimension(225, 720));
+	//gameLogScrollPane.setPreferredSize();
 	
 	add(gameLogScrollPane);
 	gameLog.setCaretPosition(0);

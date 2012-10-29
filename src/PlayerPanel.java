@@ -1,7 +1,4 @@
-import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
@@ -23,7 +20,7 @@ public class PlayerPanel extends JPanel implements ItemListener{
 	this.player = player;
 	this.playerNum = playerNum;
 
-	setBackground(new Color(242, 176, 61));
+	setBackground(Config.DARK_ORANGE);
 
 	//Default strategy - always cooperate
 	player.loadStrat(0);
@@ -31,8 +28,7 @@ public class PlayerPanel extends JPanel implements ItemListener{
 	setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
 	playerLabel = new JLabel();
-	Font labelFont = new Font("SansSerif", Font.BOLD, 17);
-	playerLabel.setFont(labelFont);
+	playerLabel.setFont(Config.LABEL_FONT);
 	playerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 	playerLabel.setText((playerNum == 1 ? "Row" : "Column") + " Player:");
 	add(playerLabel);
@@ -41,7 +37,7 @@ public class PlayerPanel extends JPanel implements ItemListener{
 	add(strategyBox);
 
 	strategyName = new JLabel((String)strategyBox.getSelectedItem());
-	strategyName.setFont(labelFont);
+	strategyName.setFont(Config.LABEL_FONT);
 	strategyName.setAlignmentX(Component.CENTER_ALIGNMENT);
 	add(strategyName);
 

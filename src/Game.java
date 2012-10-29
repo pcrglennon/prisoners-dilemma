@@ -16,8 +16,8 @@ public class Game {
     private String printString;
     private int roundTotal;
     public Game(){
-	p1 = new Player("row");
-	p2 = new Player("column");
+	p1 = new Player("Row");
+	p2 = new Player("Column");
     }
 	
     /**

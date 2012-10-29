@@ -23,10 +23,9 @@ public class EditRulesWindow extends JFrame {
     }
 
     private void createFrame() {
-	setSize(400,700);
-	setTitle("Help Window");
+	setSize(Config.EDIT_RULES_WINDOW_SIZE);
+	setTitle("Edit Rules for " + player.getID() + " Player");
 	setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	
 
 	panel = getContentPane();
 

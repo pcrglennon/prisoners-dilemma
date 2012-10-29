@@ -28,7 +28,7 @@ public class HelpWindow extends JFrame {
     }
 
     private void createFrame() {
-	setSize(576,400);
+	setSize(Config.HELP_WINDOW_SIZE);
 	if(helpType == PD_HELP_TYPE) {
 	    setTitle("Prisoner's Dilemma Help");
 	} else {
@@ -42,7 +42,7 @@ public class HelpWindow extends JFrame {
 	    BufferedImage helpImage;
 	    //Load Prisoner's Dilemma help image
 	    if(helpType == PD_HELP_TYPE) {
-		helpImage = ImageIO.read(new File("media/test.gif"));
+		helpImage = ImageIO.read(new File("media/pd.gif"));
 	    } else { //Load the Rule help image
 		helpImage = ImageIO.read(new File("media/test2.gif"));
 	    }
