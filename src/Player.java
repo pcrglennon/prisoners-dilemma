@@ -405,19 +405,16 @@ public class Player {
 		if (ruleCount==1){
 			ruleString[0] = null;
 			rules[0]=null;	
-			ruleCount--;
 		}
 		else if (i==ruleCount-1){
 			ruleString[i] = null;
 			rules[i]=null;	
-			ruleCount--;
 		}
 		else{
 			for (int j=i;j<rules.length;j++){
 				if (rules[j+1]==null || j+1==rules.length){
 				rules[j]=null;
 				ruleString[j]=null;
-				ruleCount--;
 				break;
 				}
 				rules[j+1][0]--;
@@ -425,6 +422,7 @@ public class Player {
 				ruleString[j] = ruleString[j+1];
 			}
 		}
+		ruleCount--;
 		updateRuleString();
 		return true;
     }
