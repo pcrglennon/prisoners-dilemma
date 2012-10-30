@@ -96,6 +96,9 @@ public class EditRulesPanel extends JPanel {
 	    add(addRuleTwoB);
 	}
 
+	/**
+	 * Handle a press of either "Add" button
+	 */
 	public void actionPerformed(ActionEvent e) {
 	    if(e.getSource() == addRuleOneB) {
 		if(!rfOnePanel.validatePastNumMoves()) {
@@ -340,9 +343,18 @@ public class EditRulesPanel extends JPanel {
 	    return Integer.parseInt(deleteIndex.getText());
 	}
 
+	/**
+	 * Handle a press of the delete button
+	 */
 	public void actionPerformed(ActionEvent e) {
 	    if(e.getSource() == deleteButton) {
-		System.out.println("DELETE RULE " + ruleIndexToDelete());
+		if(deleteIndex.getText().equals("")) {
+		    JOptionPane.showMessageDialog(getParent(), "Please enter the number of the rule to be deleted");
+		} else {
+		    //Subtract 1 from the input to match the actual index
+		    player.removeRule(Integer.parseInt(deleteIndex.getText()) - 1);
+		    updateStrategyPanel();
+		}
 	    }
 	}
 
