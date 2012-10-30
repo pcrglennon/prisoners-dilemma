@@ -44,7 +44,7 @@ public class HelpWindow extends JFrame {
 	    if(helpType == PD_HELP_TYPE) {
 		helpImage = ImageIO.read(new File("media/pd.gif"));
 	    } else { //Load the Rule help image
-		helpImage = ImageIO.read(new File("media/test2.gif"));
+		helpImage = ImageIO.read(new File("media/rules.gif"));
 	    }
 	    panel.add(new JScrollPane(new JLabel(new ImageIcon(helpImage)), JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER));
 	} catch(Exception e) {
