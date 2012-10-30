@@ -47,6 +47,10 @@ public class EditRulesPanel extends JPanel {
 	add(deleteRulePanel);
     }
 
+    public void updatePlayer(Player player) {
+	this.player = player;
+    }
+
     public void updateStrategyPanel() {
 	strategyPanel.setRuleText(player.getRuleString());
     }

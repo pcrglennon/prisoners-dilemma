@@ -172,9 +172,11 @@ public class GameWindow implements ActionListener, WindowListener {
 	    }
 	}
 	if(e.getSource() == editRowPlayerB) {
+	    editRowPlayerWindow.refreshEditPanel();
 	    editRowPlayerWindow.setVisible(true);
 	}
 	if(e.getSource() == editColumnPlayerB) {
+	    editColumnPlayerWindow.refreshEditPanel();
 	    editColumnPlayerWindow.setVisible(true);
 	}
 	if(e.getSource() == stratHelpB) {

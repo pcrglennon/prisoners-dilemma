@@ -28,6 +28,10 @@ public class EditRulesWindow extends JFrame {
 	    });
     }
 
+    public void refreshEditPanel() {
+	editRulesPanel.updateStrategyPanel();
+    }
+
     /**
      * Set up the window
      */
