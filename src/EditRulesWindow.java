@@ -1,7 +1,5 @@
 import java.awt.BorderLayout;
 import java.awt.Container;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
@@ -9,13 +7,15 @@ import javax.swing.*;
  * New window which allows for addition and deletion of rules
  */
 
-public class EditRulesWindow extends JFrame implements ActionListener{
+public class EditRulesWindow extends JFrame {
     
     Container panel;
 
     Player player;
 
     EditRulesPanel editRulesPanel;
+
+    JButton exitB;
 
     public EditRulesWindow(Player player) {
 	super();
@@ -47,6 +47,7 @@ public class EditRulesWindow extends JFrame implements ActionListener{
 	panel.add(editRulesPanel, BorderLayout.CENTER);
 
 	panel.add(Box.createHorizontalStrut(10), BorderLayout.LINE_END);
+
 	panel.add(Box.createVerticalStrut(10), BorderLayout.PAGE_END);
 
 	pack();
