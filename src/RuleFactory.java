@@ -41,10 +41,10 @@ public class RuleFactory {
 	 * This method pulls values from the GUI into this class for use by the Rule Factory's Rule Creation
 	 */
 	public static void getRule0Vals(String rule){
-		String[] ruleString = rule.split("|");
+		String[] ruleString = rule.split("\\|");
 		//here is where we update all values with the boxes from the GUI
 		//BELOW IS ALL TEST/TEMPORARY CODE. THIS MUST BE REPLACED WITH GUI VARIABLE EXTRACTION
-		priority = Integer.parseInt(ruleString[0]);
+		priority = Integer.parseInt(ruleString[0]) - 1;
 		ifUntil1 = (ruleString[1]=="If"?0:1); //0 - if, 1 - until
 		oppMyself2 = (ruleString[2]=="Opp."?0:1); //0 - opponent, 1 - myself
 		move3 = decideMove(ruleString[3]);
@@ -56,8 +56,8 @@ public class RuleFactory {
 	} 
 	
 	public static void getRule1Vals(String rule){
-		String[] ruleString = rule.split("|");
-		priority = Integer.parseInt(ruleString[0]);
+		String[] ruleString = rule.split("\\|");
+		priority = Integer.parseInt(ruleString[0]) - 1;
 		move1 = decideMove(ruleString[1]);
 	}
 	

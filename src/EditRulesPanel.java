@@ -53,6 +53,12 @@ public class EditRulesPanel extends JPanel {
 	strategyPanel.setRuleText(player.getRuleString());
     }
 
+    /**
+     * Internal class - New Rule Panel
+     *
+     * Holds the configuration panels and buttons for adding new rules
+     */
+
     private class NewRulePanel extends JPanel implements ActionListener {
 
 	private JPanel addRuleButtonsPanel;
@@ -92,21 +98,30 @@ public class EditRulesPanel extends JPanel {
 
 	public void actionPerformed(ActionEvent e) {
 	    if(e.getSource() == addRuleOneB) {
-		System.out.println(rfOnePanel.getRuleString());
-		player.createRule0(rfOnePanel.getRuleString());
-		updateStrategyPanel();
+		if(!rfOnePanel.validatePastNumMoves()) {
+		    JOptionPane.showMessageDialog(getParent(), "Please enter past number of moves, or mark the \"all\" checkbox");
+		} else if (!rfOnePanel.validateFutureNumMoves()) {
+		    JOptionPane.showMessageDialog(getParent(), "Please enter future number of moves, or mark the \"all\" checkbox");
+		} else {
+		    System.out.println(rfOnePanel.getRuleString());
+		    player.createRule0(rfOnePanel.getRuleString());
+		    updateStrategyPanel();
+		}
 	    }
 	    if(e.getSource() == addRuleTwoB) {
-		System.out.println(rfTwoPanel.getRuleString());
-		//Add to Player
+		player.createRule1(rfTwoPanel.getRuleString());
+		updateStrategyPanel();
 	    }
 	}
 
 	/**
-	 * Container Class for the long-format rule our agents use
+	 * Allows configuration of the long-format rule our agents use
+	 *
+	 * Contains a number of drop-down menus and NumericTextFields which
+	 * are the variables that make up the rule
 	 */
 
-	class RuleFormatOnePanel extends JPanel {
+	private class RuleFormatOnePanel extends JPanel {
 
 	    private final static int CONFIG_MAX_MOVES = 10;
 	    private final static int CONFIG_MOVES_INCREMENT = 1;
@@ -114,17 +129,23 @@ public class EditRulesPanel extends JPanel {
 	    private JComboBox<Integer> priorityNumBox;
 	    private JComboBox<String> ifUntilBox;
 	    private JComboBox<String> playerBox;
-	    private JComboBox<String> previousMoveTypeBox;
-	    private JComboBox<String> overUnderBox;
-	    private JComboBox<String> previousMovePercentBox;
-	    private JComboBox<String> previousNumMovesBox;
-	    private JComboBox<String> futureNumMovesBox;
+	    private JComboBox<String> pastMoveTypeBox;
+	    private JComboBox<String> atLeastUnderBox;
+	    private JComboBox<String> pastMovePercentBox;
+	    
+	    private JCheckBox allPastMovesCB;
+	    private NumericTextField numPastMoves;
+
 	    private JComboBox<String> futureMoveTypeBox;
+	    
+	    private JCheckBox allFutureMovesCB;
+	    private NumericTextField numFutureMoves;
 
 	    private JLabel moveIsLabel = new JLabel("move is");
-	    private JLabel percentOfLabel = new JLabel("% of the previous");
-	    private JLabel movesThenLabel = new JLabel("moves then queue");
-	    private JLabel turnOfLabel = new JLabel("turn of");
+	    private JLabel percentOfLabel = new JLabel("% of the past");
+	    private JLabel movesThenLabel = new JLabel("move(s) then queue");
+	    private JLabel forLabel = new JLabel("for");
+	    private JLabel futureMovesLabel = new JLabel("future move(s)");
 
 	    public RuleFormatOnePanel() {
 		super();
@@ -133,7 +154,7 @@ public class EditRulesPanel extends JPanel {
 		Integer[] priorityNumList = {1,2,3,4,5,6,7,8,9,10};
 		String[] ifUntilList = {"If", "Until"};
 		String[] playerList = {"Your", "Opp."};
-		String[] overUnderList = {"At least", "Under"};
+		String[] atLeastUnderList = {"At least", "Under"};
 		String[] percentageList = {"10", "20", "30", "40", "50", "60", "70", "80", "90", "100"};
 		JPanel priorityPanel = new JPanel();
 		priorityPanel.setLayout(new FlowLayout());
@@ -142,46 +163,84 @@ public class EditRulesPanel extends JPanel {
 		priorityNumBox = new JComboBox<Integer>(priorityNumList);
 		priorityPanel.add(priorityNumBox);
 
+		JPanel panelOne = new JPanel();
+		panelOne.setLayout(new FlowLayout());
 		ifUntilBox = new JComboBox<String>(ifUntilList);
+		panelOne.add(ifUntilBox);
 		playerBox = new JComboBox<String>(playerList);
-		previousMoveTypeBox = new JComboBox<String>(Config.MOVE_LIST);
-		previousMovePercentBox = new JComboBox<String>(percentageList);
-		overUnderBox = new JComboBox<String>(overUnderList);
-		previousNumMovesBox = new JComboBox<String>();
-		futureNumMovesBox = new JComboBox<String>();
-		setupNumMovesBox(previousNumMovesBox);
-		setupNumMovesBox(futureNumMovesBox);
+		panelOne.add(playerBox);
+		panelOne.add(moveIsLabel);
+		
+		JPanel panelTwo = new JPanel();
+		panelTwo.setLayout(new FlowLayout());
+		pastMoveTypeBox = new JComboBox<String>(Config.MOVE_LIST);
+		panelTwo.add(pastMoveTypeBox);
+		atLeastUnderBox = new JComboBox<String>(atLeastUnderList);
+		panelTwo.add(atLeastUnderBox);
+		pastMovePercentBox = new JComboBox<String>(percentageList);
+		panelTwo.add(pastMovePercentBox);
+
+		JPanel panelThree = new JPanel();
+		panelThree.add(percentOfLabel);
+		panelThree.setLayout(new FlowLayout());
+		numPastMoves = new NumericTextField(3);
+		panelThree.add(numPastMoves);
+		panelThree.add(new JLabel("OR"));
+		allPastMovesCB = new JCheckBox("all");
+		panelThree.add(allPastMovesCB);
+
+		JPanel panelFour = new JPanel();
+		panelFour.add(movesThenLabel);
 		futureMoveTypeBox = new JComboBox<String>(Config.MOVE_LIST);
+		panelFour.add(futureMoveTypeBox);
+
+		JPanel panelFive = new JPanel();
+		panelFive.add(forLabel);
+		panelFive.setLayout(new FlowLayout());
+		numFutureMoves = new NumericTextField(3);
+		panelFive.add(numFutureMoves);
+		panelFive.add(new JLabel("OR"));
+		allFutureMovesCB = new JCheckBox("all");
+		panelFive.add(allFutureMovesCB);
+		panelFive.add(futureMovesLabel);
 
 		add(priorityPanel);
 		add(Box.createVerticalGlue());
-		add(ifUntilBox);
+		add(panelOne);
 		add(Box.createVerticalGlue());
-		add(playerBox);
+		add(panelTwo);
 		add(Box.createVerticalGlue());
-		add(moveIsLabel);
+		add(panelThree);
 		add(Box.createVerticalGlue());
-		add(previousMoveTypeBox);
+		add(panelFour);
 		add(Box.createVerticalGlue());
-		add(overUnderBox);
-		add(Box.createVerticalGlue());
-		add(previousMovePercentBox);
-		add(Box.createVerticalGlue());
-		add(percentOfLabel);
-		add(Box.createVerticalGlue());
-		add(previousNumMovesBox);
-		add(Box.createVerticalGlue());
-		add(movesThenLabel);
-		add(Box.createVerticalGlue());
-		add(futureNumMovesBox);
-		add(Box.createVerticalGlue());
-		add(turnOfLabel);
-		add(Box.createVerticalGlue());
-		add(futureMoveTypeBox);
+		add(panelFive);
+	    }
+
+	    public boolean validatePastNumMoves() {
+		if(!allPastMovesCB.isSelected()) {
+		    if(numPastMoves.getText().equals("")) {
+			return false;
+		    }
+		    System.out.println("past moves ok, num PM >> " + numPastMoves.getText());
+		    return true;
+		}
+		return true;
+	    }
+
+	    public boolean validateFutureNumMoves() {
+		if(!allFutureMovesCB.isSelected()) {
+		    if(numFutureMoves.getText().equals("")) {
+			return false;
+		    }
+		    System.out.println("future moves ok, num PM >> " + numPastMoves.getText());
+		    return true;
+		}
+		return true;
 	    }
 
 	    /**
-	     * Returns the variables which define a rule, with each variable delimited
+	     * Returns the variables which define rule type 1, with each variable delimited
 	     * by the '|' character
 	     */
 
@@ -189,12 +248,12 @@ public class EditRulesPanel extends JPanel {
 		return((int)priorityNumBox.getSelectedItem() + "|" +
 		       (String)ifUntilBox.getSelectedItem() + "|" +
 		       (String)playerBox.getSelectedItem() + "|" + 
-		       (String)previousMoveTypeBox.getSelectedItem() + "|" +
-		       (String)overUnderBox.getSelectedItem() + "|" +
-		       (String)previousMovePercentBox.getSelectedItem() + "|" +
-		       (String)previousNumMovesBox.getSelectedItem() + "|" +
-		       (String)futureNumMovesBox.getSelectedItem() + "|" +
-		       (String)futureMoveTypeBox.getSelectedItem());
+		       (String)pastMoveTypeBox.getSelectedItem() + "|" +
+		       (String)atLeastUnderBox.getSelectedItem() + "|" +
+		       (String)pastMovePercentBox.getSelectedItem() + "|" +
+		       (allPastMovesCB.isSelected() ? "-1" : numPastMoves.getText()) + "|" +
+		       (String)futureMoveTypeBox.getSelectedItem() + "|" +
+		       (allFutureMovesCB.isSelected() ? "-1" : numFutureMoves.getText()));
 	    }
 
 	    private void setupNumMovesBox(JComboBox<String> numMovesBox) {
@@ -204,7 +263,11 @@ public class EditRulesPanel extends JPanel {
 	    }
 	}
 
-	class RuleFormatTwoPanel extends JPanel{
+	/**
+	 * Format for the short-form rule (always [move-type])
+	 */
+	
+	private class RuleFormatTwoPanel extends JPanel{
 	
 	    private JComboBox<Integer> priorityNumBox;
 
@@ -241,6 +304,12 @@ public class EditRulesPanel extends JPanel {
 	    }
 	}
     }
+
+    /**
+     * Internal class - Delete Rule Panel
+     *
+     * Numeric Text Field for the number of the rule to be deleted, and delete button
+     */
 
     private class DeleteRulePanel extends JPanel implements ActionListener{
 
