@@ -4,6 +4,12 @@ import java.awt.Insets;
 
 import javax.swing.*;
 
+/**
+ * Holds the two configuration items:
+ *    1) Checkbox to ensure a prisoner's dilemma payoff structure
+ *    2) NumericTextField for number of rounds to be played
+ */
+
 public class SelectionPanel extends JPanel {
 
     private JLabel ensurePDLabel;

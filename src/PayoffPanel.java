@@ -7,6 +7,10 @@ import java.util.regex.Pattern;
 import javax.swing.*;
 import javax.swing.text.*;
 
+/**
+ * The payoff matrix, made up of 4 cells containing the payoffs for both row and column players
+ */
+
 public class PayoffPanel extends JPanel implements FocusListener {
     
     private PayoffCell topLeft;
@@ -65,7 +69,6 @@ public class PayoffPanel extends JPanel implements FocusListener {
      * Gets all payoffs from the PayoffCells, and returns them as a 2D array
      * Will return null if any PayoffCell is empty
      */
-
     public int[][] getAllPayoffs() {
 	int[][] allPayoffs = new int[4][2];
 	allPayoffs[0] = topLeft.getPayoffs();
@@ -78,9 +81,11 @@ public class PayoffPanel extends JPanel implements FocusListener {
 	return allPayoffs;
     }
 
-    public void focusGained(FocusEvent e) {
-    }
+    public void focusGained(FocusEvent e) {}
 
+    /**
+     * After a cell is filled, validates the contents of the cell
+     */
     public void focusLost(FocusEvent e) {
 	if(e.getSource() instanceof PayoffCell) {
 	    PayoffCell pc = (PayoffCell)e.getSource();

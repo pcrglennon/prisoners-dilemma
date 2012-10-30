@@ -4,10 +4,13 @@ import java.awt.event.ItemListener;
 
 import javax.swing.*;
 
+/**
+ * Holds the strategy-selection dropdown, and a panel which displays the player's ruleset
+ */
+
 public class PlayerPanel extends JPanel implements ItemListener{
 
     private Player player;
-    private int playerNum;
 
     private JLabel playerLabel;
 
@@ -15,10 +18,9 @@ public class PlayerPanel extends JPanel implements ItemListener{
     private JLabel strategyName;
     private StrategyPanel strategyPanel;
 
-    public PlayerPanel(Player player, int playerNum) {
+    public PlayerPanel(Player player) {
 	super();
 	this.player = player;
-	this.playerNum = playerNum;
 
 	setBackground(Config.DARK_ORANGE);
 
@@ -30,7 +32,7 @@ public class PlayerPanel extends JPanel implements ItemListener{
 	playerLabel = new JLabel();
 	playerLabel.setFont(Config.LABEL_FONT);
 	playerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-	playerLabel.setText((playerNum == 1 ? "Row" : "Column") + " Player:");
+	playerLabel.setText(player.getID() + " Player:");
 	add(playerLabel);
 
 	setupStrategyBox();
@@ -61,8 +63,7 @@ public class PlayerPanel extends JPanel implements ItemListener{
     }
 
     public void setupStrategyBox() {
-	strategyBox = new JComboBox<String>(Config.MOVE_LIST);
-	strategyBox.addItem("Custom");
+	strategyBox = new JComboBox<String>(Config.STRATEGY_LIST);
 	strategyBox.addItemListener(this);
     }
 }

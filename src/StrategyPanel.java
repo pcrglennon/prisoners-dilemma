@@ -3,6 +3,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+/**
+ * Contains a list representation of the player's ruleset
+ */
+
 public class StrategyPanel extends JPanel {
 
     JTextArea strategyText;
@@ -26,6 +30,10 @@ public class StrategyPanel extends JPanel {
 	add(strategyTextScrollPane);
     }
 
+    /** 
+     * Set the text to the player's ruleset
+     */
+
     public void setRuleText(String[] ruleString) {
 	strategyText.setText(null);
 	String rules = "";
@@ -38,5 +46,4 @@ public class StrategyPanel extends JPanel {
 	strategyText.setText(rules);
 	strategyText.setCaretPosition(0);
     }
-
 }

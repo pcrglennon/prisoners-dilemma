@@ -14,9 +14,7 @@ public class EditRulesPanel extends JPanel {
     private Player player;
 
     private JLabel editRulesLabel;
-
-    private JPanel ruleListPanel;
-
+    
     private StrategyPanel strategyPanel;
 
     private NewRulePanel newRulePanel;
@@ -32,7 +30,7 @@ public class EditRulesPanel extends JPanel {
 	editRulesLabel = new JLabel();
 	editRulesLabel.setFont(Config.LABEL_FONT);
 	editRulesLabel.setText(player.getID() + " Player's Rules");
-	editRulesLabel.setAlignmentX(Component.TOP_ALIGNMENT);
+	editRulesLabel.setAlignmentY(Component.TOP_ALIGNMENT);
 	editRulesLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 	add(editRulesLabel);
@@ -106,9 +104,15 @@ public class EditRulesPanel extends JPanel {
 		} else if (!rfOnePanel.validateFutureNumMoves()) {
 		    JOptionPane.showMessageDialog(getParent(), "Please enter future number of moves, or mark the \"all\" checkbox");
 		} else {
-		    System.out.println(rfOnePanel.getRuleString());
 		    player.createRule0(rfOnePanel.getRuleString());
 		    updateStrategyPanel();
+		    /**
+		    if(player.createRule0(rfOnePanel.getRuleString())) {
+			updateStrategyPanel();
+		    } else { //The rule set is already full
+			JOptionPane.showMessageDialog(getParent(), player.getID() + " Player's Ruleset is full");
+		    }
+		    */
 		}
 	    }
 	    if(e.getSource() == addRuleTwoB) {
@@ -126,9 +130,6 @@ public class EditRulesPanel extends JPanel {
 
 	private class RuleFormatOnePanel extends JPanel {
 
-	    private final static int CONFIG_MAX_MOVES = 10;
-	    private final static int CONFIG_MOVES_INCREMENT = 1;
-	
 	    private JComboBox<Integer> priorityNumBox;
 	    private JComboBox<String> ifUntilBox;
 	    private JComboBox<String> playerBox;
@@ -145,7 +146,7 @@ public class EditRulesPanel extends JPanel {
 	    private NumericTextField numFutureMoves;
 
 	    private JLabel moveIsLabel = new JLabel("move is");
-	    private JLabel percentOfLabel = new JLabel("% of the past");
+	    private JLabel ofThePastLabel = new JLabel("of the past");
 	    private JLabel movesThenLabel = new JLabel("move(s) then queue");
 	    private JLabel forLabel = new JLabel("for");
 	    private JLabel futureMovesLabel = new JLabel("future move(s)");
@@ -182,9 +183,10 @@ public class EditRulesPanel extends JPanel {
 		panelTwo.add(atLeastUnderBox);
 		pastMovePercentBox = new JComboBox<String>(percentageList);
 		panelTwo.add(pastMovePercentBox);
+		panelTwo.add(new JLabel("%"));
 
 		JPanel panelThree = new JPanel();
-		panelThree.add(percentOfLabel);
+		panelThree.add(ofThePastLabel);
 		panelThree.setLayout(new FlowLayout());
 		numPastMoves = new NumericTextField(3);
 		panelThree.add(numPastMoves);
@@ -225,7 +227,6 @@ public class EditRulesPanel extends JPanel {
 		    if(numPastMoves.getText().equals("")) {
 			return false;
 		    }
-		    System.out.println("past moves ok, num PM >> " + numPastMoves.getText());
 		    return true;
 		}
 		return true;
@@ -236,7 +237,6 @@ public class EditRulesPanel extends JPanel {
 		    if(numFutureMoves.getText().equals("")) {
 			return false;
 		    }
-		    System.out.println("future moves ok, num PM >> " + numPastMoves.getText());
 		    return true;
 		}
 		return true;
@@ -257,12 +257,6 @@ public class EditRulesPanel extends JPanel {
 		       (allPastMovesCB.isSelected() ? "-1" : numPastMoves.getText()) + "|" +
 		       (String)futureMoveTypeBox.getSelectedItem() + "|" +
 		       (allFutureMovesCB.isSelected() ? "-1" : numFutureMoves.getText()));
-	    }
-
-	    private void setupNumMovesBox(JComboBox<String> numMovesBox) {
-		for(int i = 1; i <= CONFIG_MAX_MOVES; i += CONFIG_MOVES_INCREMENT) {
-		    numMovesBox.addItem("" + i);
-		}
 	    }
 	}
 
@@ -338,9 +332,13 @@ public class EditRulesPanel extends JPanel {
 	    deleteButton.addActionListener(this);
 	    add(deleteButton);
 	}
-
+	/**
+	 * Returns the index of the rule to be deleted
+	 *
+	 * Must subtract one from the user-inputted index to match the actual rule index
+	 */
 	private int ruleIndexToDelete() {
-	    return Integer.parseInt(deleteIndex.getText());
+	    return Integer.parseInt(deleteIndex.getText()) - 1;
 	}
 
 	/**
@@ -351,9 +349,11 @@ public class EditRulesPanel extends JPanel {
 		if(deleteIndex.getText().equals("")) {
 		    JOptionPane.showMessageDialog(getParent(), "Please enter the number of the rule to be deleted");
 		} else {
-		    //Subtract 1 from the input to match the actual index
-		    player.removeRule(Integer.parseInt(deleteIndex.getText()) - 1);
+		    player.removeRule(ruleIndexToDelete());
 		    updateStrategyPanel();
+		    //} else { //Deletion was unsuccessful, the index was out of range
+		//	JOptionPane.showMessageDialog(getParent(), "This rule number is not present in the rule list");
+		    //  }
 		}
 	    }
 	}

@@ -7,6 +7,11 @@ import java.io.*;
 
 import javax.swing.*;
 
+/**
+ * Contains the Game Log which has the final results of the simulation, as well as more 
+ * detailed information, such as what happened at each round
+ */
+
 public class GameLogPanel extends JPanel {
 
     private JLabel gameLogLabel;
@@ -34,7 +39,6 @@ public class GameLogPanel extends JPanel {
 	makeGameLogPlaceholder();
 	
 	gameLogScrollPane = new JScrollPane(gameLog, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-	//gameLogScrollPane.setPreferredSize();
 	
 	add(gameLogScrollPane);
 	gameLog.setCaretPosition(0);
@@ -43,6 +47,11 @@ public class GameLogPanel extends JPanel {
     public void updateGameLog(String newGameLogText) {
 	gameLog.setText(newGameLogText);
     }
+
+    /**
+     * Before any game is played, set up the game log with a blank file,
+     * in order to define the size of the game log panel
+     */
 
     private void makeGameLogPlaceholder() {
 	StringBuilder glp = new StringBuilder();

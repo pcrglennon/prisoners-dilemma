@@ -1,9 +1,15 @@
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-public class EditRulesWindow extends JFrame {
+/**
+ * New window which allows for addition and deletion of rules
+ */
+
+public class EditRulesWindow extends JFrame implements ActionListener{
     
     Container panel;
 
@@ -21,6 +27,10 @@ public class EditRulesWindow extends JFrame {
 		}
 	    });
     }
+
+    /**
+     * Set up the window
+     */
 
     private void createFrame() {
 	setSize(Config.EDIT_RULES_WINDOW_SIZE);

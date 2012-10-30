@@ -30,4 +30,6 @@ public class Config {
 
     public final static String[] MOVE_LIST = {"Cooperate", "Defect", "Opp. Prev.", "! Opp. Prev.", "Your Prev.", "! Your Prev.", "Anything"};
 
+    public final static String[] STRATEGY_LIST = {"Cooperate", "Defect", "Random", "Tit for Tat", "Tat for Tit", "Forgiving Tit for Tat", "Grim", "Prideful", "Nice Average", "Custom"};
+
 }

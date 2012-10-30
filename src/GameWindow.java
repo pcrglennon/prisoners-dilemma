@@ -12,6 +12,10 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+/**
+ * The master class, which sets up the main window, and holds almost all of the other components
+ */
+
 public class GameWindow implements ActionListener, WindowListener {
 
     Game game;
@@ -38,9 +42,6 @@ public class GameWindow implements ActionListener, WindowListener {
     EditRulesWindow editRowPlayerWindow;
     EditRulesWindow editColumnPlayerWindow;
 
-    /** 
-     * Constructor
-     */
     public GameWindow() {
 	game = new Game();
 
@@ -51,6 +52,9 @@ public class GameWindow implements ActionListener, WindowListener {
 	    });
     }
 
+    /**
+     * Sets up the initial game window
+     */
     public void createAndShowGUI() {
 	frame = new JFrame("Prisoner's Dilemma Simulation");
 	frame.setSize(Config.GAME_WINDOW_SIZE);
@@ -95,9 +99,9 @@ public class GameWindow implements ActionListener, WindowListener {
 	    e.printStackTrace();
 	}
 	gridPanel.add(imagePanel);
-	columnPlayerPanel = new PlayerPanel(game.getColumnPlayer(), 2);
+	columnPlayerPanel = new PlayerPanel(game.getColumnPlayer());
 	gridPanel.add(columnPlayerPanel);
-	rowPlayerPanel = new PlayerPanel(game.getRowPlayer(), 1);
+	rowPlayerPanel = new PlayerPanel(game.getRowPlayer());
 	gridPanel.add(rowPlayerPanel);
 	payoffPanel = new PayoffPanel();
 	gridPanel.add(payoffPanel);
@@ -186,6 +190,10 @@ public class GameWindow implements ActionListener, WindowListener {
 	}
     }
 
+    /**
+     * When a player's edit rules window is closed, updates their strategy panel
+     * in the main window
+     */
     public void windowClosing(WindowEvent e) {
 	if(e.getSource() == editRowPlayerWindow) {
 	    rowPlayerPanel.updateStrategyPanel();

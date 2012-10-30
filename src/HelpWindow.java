@@ -7,11 +7,18 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+/**
+ * New Window which contain one of two guides on how to use the simulation:
+ *    1) Understanding a Prisoner's Dilemma
+ *    2) How the player's ruleset is set up
+ */
+
 public class HelpWindow extends JFrame {
 
     public static final int PD_HELP_TYPE = 1;
     public static final int STRAT_HELP_TYPE = 2;
 
+    //The type of this instance of a HelpWindow
     private int helpType;
 
     Container panel;

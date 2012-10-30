@@ -25,6 +25,10 @@ class NumericTextField extends JTextField {
     protected Document createDefaultModel() {
 	return new NumericDocument();
     }
+
+    /**
+     * Will only accept numbers as input
+     */
     
     private class NumericDocument extends PlainDocument {
 	
