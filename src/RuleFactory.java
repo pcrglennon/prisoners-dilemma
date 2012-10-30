@@ -60,8 +60,7 @@ public class RuleFactory {
 	priority = Integer.parseInt(ruleString[0]) - 1;
 	move1 = decideMove(ruleString[1]);
     }
-	
-<<<<<<< HEAD
+
 	public static int decideMove(String move){
 		if (move.equals("Cooperate")) return 0;  //0 - coop, 1 - defect, 2 - same as opp previous, 3 - opposite of opp previous,  4 - my prev, 5 - opp of my prev, 6 - any
 		else if (move.equals("Defect")) return 1;
@@ -71,17 +70,6 @@ public class RuleFactory {
 		else if (move.equals("! Your Prev")) return 5;
 		else return 6; 
 	}
-=======
-    public static int decideMove(String move){
-	if (move=="Cooperate") return 0;  //0 - coop, 1 - defect, 2 - same as opp previous, 3 - opposite of opp previous,  4 - my prev, 5 - opp of my prev, 6 - any
-	else if (move=="Defect") return 1;
-	else if (move=="Opp. Prev.") return 2;
-	else if (move=="! Opp. Prev.") return 3;
-	else if (move=="Your Prev.") return 4;
-	else if (move=="! Your Prev") return 5;
-	else return 6; 
-    }
->>>>>>> 4df324068e20304435e67c280dae266703b38bca
 	
     /**
      * Retrieves rule specifications in form of int[]
@@ -171,7 +159,7 @@ public class RuleFactory {
 	    return "" + (priority + 1) + ") Always ["+sM1[move7] + "].";
 	} //{0,1,0,6,0,100,1,0,1}
     }   
->>>>>>> 4df324068e20304435e67c280dae266703b38bca
+
 	
     /**
      * This method holds premade strategies that can be retrieved with an integer input. 

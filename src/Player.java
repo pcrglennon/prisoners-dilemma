@@ -273,7 +273,6 @@ public class Player {
 	return false; //if it fails both tests
     }
 	
-	
     /**
      * Helper function that takes in a specification parameter (choice) and outputs what (boolean) move that actually represents 
      * 
@@ -352,19 +351,13 @@ public class Player {
 	if (newRule[0]<0){
 		newRule[0]=0;
 	} 
-	
-	if (newRule.length==9){ //here we get the right string to add
-	    newRuleString=RuleFactory.getRuleString(0, newRule);
-	}
-	else{
-	    newRuleString = RuleFactory.getRuleString(1, newRule);
-	}
-		
+	newRuleString=RuleFactory.getRuleString(newRule);
 	if (ruleCount==0){
 	    //System.out.println("New Rule");
 	    rules[0]=newRule;
 	    ruleString[0]=newRuleString;
 	    ruleCount++;
+		updateRuleString();
 	}
 	else{
 	    boolean assign = false;
@@ -389,6 +382,7 @@ public class Player {
 		    break;
 		}
 	    }
+		updateRuleString();
 	}
 	//		System.out.println("Rule Added");
 	//		for (int i=0;i<ruleCount;i++){
@@ -418,6 +412,12 @@ public class Player {
 	    ruleString[j] = ruleString[j+1];		
 	}
     }
+	
+	public void updateRuleString(){
+		for (int i=0;i<ruleCount;i++){
+			ruleString[i]=RuleFactory.getRuleString(rules[i]);	
+		}
+	}
     //-----------^^^---------RULE CREATION/ADDITION/DELETION----------^^^-------------//	
 	
     //-----------VVV-----------STRING RETRUNS FOR DISPLAY-------------VVV-------------//
