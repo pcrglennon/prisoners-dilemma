@@ -62,12 +62,12 @@ public class RuleFactory {
 	}
 	
 	public static int decideMove(String move){
-		if (move=="Cooperate") return 0;  //0 - coop, 1 - defect, 2 - same as opp previous, 3 - opposite of opp previous,  4 - my prev, 5 - opp of my prev, 6 - any
-		else if (move=="Defect") return 1;
-		else if (move=="Opp. Prev.") return 2;
-		else if (move=="! Opp. Prev.") return 3;
-		else if (move=="Your Prev.") return 4;
-		else if (move=="! Your Prev") return 5;
+		if (move.equals("Cooperate")) return 0;  //0 - coop, 1 - defect, 2 - same as opp previous, 3 - opposite of opp previous,  4 - my prev, 5 - opp of my prev, 6 - any
+		else if (move.equals("Defect")) return 1;
+		else if (move.equals("Opp. Prev.")) return 2;
+		else if (move.equals("! Opp. Prev.")) return 3;
+		else if (move.equals("Your Prev.")) return 4;
+		else if (move.equals("! Your Prev")) return 5;
 		else return 6; 
 	}
 	
@@ -100,9 +100,9 @@ public class RuleFactory {
 	 * @param rule
 	 * @return
 	 */
-	public static String getRuleString(int rule, int[] specs){
+	public static String getRuleString(int[] specs){
 		priority = specs[0];
-		if (rule==0){
+		if (specs.length==9){
 			ifUntil1 = specs[1]; //0 - if, 1 - until
 			oppMyself2 = specs[2]; //0 - opponent, 1 - myself
 			move3 = specs[3]; //0 - coop, 1 - defect, 2 - same as opp previous, 3 - opposite of opp previous, 4 - my prev, 5 - opp of my prev, 6 - any/random
