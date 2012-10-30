@@ -69,7 +69,7 @@ public class GameWindow implements ActionListener, WindowListener {
 	gameLogPanel.setBackground(Config.LIGHT_GRAY);
 
 	panel.add(gameLogPanel, BorderLayout.LINE_END);
-			     
+
 	setupButtonPanel();
 
 	editRowPlayerWindow = new EditRulesWindow(game.getRowPlayer());
@@ -105,9 +105,16 @@ public class GameWindow implements ActionListener, WindowListener {
 	gridPanel.add(rowPlayerPanel);
 	payoffPanel = new PayoffPanel();
 	gridPanel.add(payoffPanel);
-	JPanel placeHolderPanel = new JPanel();
-	placeHolderPanel.setBackground(Config.LIGHT_GRAY);
-	gridPanel.add(placeHolderPanel);
+
+	JPanel imageTwoPanel = new JPanel();
+	imageTwoPanel.setBackground(Config.DARK_GRAY);
+	try {
+	    BufferedImage bearImageTwo = ImageIO.read(new File("media/justBearWithMeOkay.gif"));
+	    imageTwoPanel.add(new JLabel(new ImageIcon(bearImageTwo)));
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
+	gridPanel.add(imageTwoPanel);
 	selectionPanel = new SelectionPanel();
 	selectionPanel.setBackground(Config.LIGHT_GRAY);
 	gridPanel.add(selectionPanel);
