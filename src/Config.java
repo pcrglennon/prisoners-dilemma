@@ -19,8 +19,6 @@ public class Config {
     public final static Dimension PAYOFF_CELL_PREF_SIZE = new Dimension(105,40);
     public final static Dimension STRATEGY_PANEL_PREF_SIZE = new Dimension(300, 200);
 
-    //public final static int GAME_WINDOW_POS_X = 
-
     public final static Color LIGHT_GRAY = new Color(180, 194, 181);
     public final static Color DARK_GRAY = new Color(92, 86, 73);
     public final static Color LIGHT_ORANGE = new Color(245, 210, 149);

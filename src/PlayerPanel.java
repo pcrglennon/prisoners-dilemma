@@ -46,21 +46,23 @@ public class PlayerPanel extends JPanel implements ItemListener{
 	add(strategyPanel);
     }
 
+    public void updateStrategyPanel() {
+	strategyPanel.setRuleText(player.getRuleString());
+    }
+
     public void itemStateChanged(ItemEvent e) {
 	if (e.getSource() == strategyBox) {
 	    if(e.getStateChange() == e.SELECTED) {
 		strategyName.setText((String)strategyBox.getSelectedItem());
 		player.loadStrat(strategyBox.getSelectedIndex());
 		strategyPanel.setRuleText(player.getRuleString());
-		//TODO - update the strategy panel in the editrules panel
 	    }
 	}
     }
 
     public void setupStrategyBox() {
-	//String[] choices = {"Cooperate", "Defect", "Random", "Tit for Tat", "Tat for Tit", "Forgiving TfT"};
-	String[] choices = {"Cooperate", "Defect", "Random", "Tit for Tat", "Tat for Tit", "Forgiving TfT", "Grim", "Prideful", "Average"};
-	strategyBox = new JComboBox<String>(choices);
+	strategyBox = new JComboBox<String>(Config.MOVE_LIST);
+	strategyBox.addItem("Custom");
 	strategyBox.addItemListener(this);
     }
 }

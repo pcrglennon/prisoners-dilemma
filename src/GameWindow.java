@@ -1,6 +1,8 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 
 import java.io.File;
@@ -10,7 +12,7 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-public class GameWindow implements ActionListener {
+public class GameWindow implements ActionListener, WindowListener {
 
     Game game;
 
@@ -20,8 +22,8 @@ public class GameWindow implements ActionListener {
     Container gridPanel;
     PayoffPanel payoffPanel;
     SelectionPanel selectionPanel;
-    PlayerPanel p1Panel;
-    PlayerPanel p2Panel;
+    PlayerPanel rowPlayerPanel;
+    PlayerPanel columnPlayerPanel;
 
     GameLogPanel gameLogPanel;
 
@@ -32,6 +34,9 @@ public class GameWindow implements ActionListener {
     JButton stratHelpB;
     JButton pdHelpB;
     JButton quitB;
+
+    EditRulesWindow editRowPlayerWindow;
+    EditRulesWindow editColumnPlayerWindow;
 
     /** 
      * Constructor
@@ -63,6 +68,11 @@ public class GameWindow implements ActionListener {
 			     
 	setupButtonPanel();
 
+	editRowPlayerWindow = new EditRulesWindow(game.getRowPlayer());
+	editRowPlayerWindow.addWindowListener(this);
+	editColumnPlayerWindow = new EditRulesWindow(game.getColumnPlayer());
+	editColumnPlayerWindow.addWindowListener(this);
+
 	frame.pack();
 	frame.setVisible(true);
     }
@@ -85,10 +95,10 @@ public class GameWindow implements ActionListener {
 	    e.printStackTrace();
 	}
 	gridPanel.add(imagePanel);
-	p2Panel = new PlayerPanel(game.getColumnPlayer(), 2);
-	gridPanel.add(p2Panel);
-	p1Panel = new PlayerPanel(game.getRowPlayer(), 1);
-	gridPanel.add(p1Panel);
+	columnPlayerPanel = new PlayerPanel(game.getColumnPlayer(), 2);
+	gridPanel.add(columnPlayerPanel);
+	rowPlayerPanel = new PlayerPanel(game.getRowPlayer(), 1);
+	gridPanel.add(rowPlayerPanel);
 	payoffPanel = new PayoffPanel();
 	gridPanel.add(payoffPanel);
 	JPanel placeHolderPanel = new JPanel();
@@ -135,6 +145,9 @@ public class GameWindow implements ActionListener {
 	panel.add(buttonPanel, BorderLayout.PAGE_END);
     }
 
+    /**
+     * Handle Button actions
+     */
     public void actionPerformed(ActionEvent e) {
 	if(e.getSource() == playB) {
 	    int[][] payoffs = payoffPanel.getAllPayoffs();
@@ -155,15 +168,10 @@ public class GameWindow implements ActionListener {
 	    }
 	}
 	if(e.getSource() == editRowPlayerB) {
-	    System.out.println("EDIT RULES P1");
-	    EditRulesWindow p1Window = new EditRulesWindow(game.getRowPlayer());
-	    p1Window.setVisible(true);
+	    editRowPlayerWindow.setVisible(true);
 	}
-
 	if(e.getSource() == editColumnPlayerB) {
-	    System.out.println("EDIT RULES P2");
-	    EditRulesWindow p2Window = new EditRulesWindow(game.getColumnPlayer());
-	    p2Window.setVisible(true);
+	    editColumnPlayerWindow.setVisible(true);
 	}
 	if(e.getSource() == stratHelpB) {
 	    HelpWindow helpWindow = new HelpWindow(HelpWindow.STRAT_HELP_TYPE);
@@ -177,6 +185,32 @@ public class GameWindow implements ActionListener {
 	    System.exit(0);
 	}
     }
+
+    public void windowClosing(WindowEvent e) {
+	if(e.getSource() == editRowPlayerWindow) {
+	    rowPlayerPanel.updateStrategyPanel();
+	}
+	if(e.getSource() == editColumnPlayerWindow) {
+	    columnPlayerPanel.updateStrategyPanel();
+	}
+    }
+
+    /**
+     * Methods that must be overriden by the class, as it implements
+     * WindowListener, although they are not used
+     */
+    
+    public void windowActivated(WindowEvent e) {}
+
+    public void windowClosed(WindowEvent e) {}
+
+    public void windowDeactivated(WindowEvent e) {}
+
+    public void windowDeiconified(WindowEvent e) {}
+    
+    public void windowIconified(WindowEvent e) {}
+
+    public void windowOpened(WindowEvent e) {}
 
     public static void main(String[] args) {
 	new GameWindow();
