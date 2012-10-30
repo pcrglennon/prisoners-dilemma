@@ -181,11 +181,15 @@ public class RuleFactory {
 				{1,0}}; //cooperate
 	    return prideful;
 	}
-	else{ //nice average
+	else if(strat==8){ //nice average
 	    int[][] average = {{0,1,0,6,0,100,1,0,1},
 			       {1,0,0,0,0,50,-1,0,1}, //if opponent plays cooperate at least 50% of the time, cooperate
 			       {2,1}};//cooperate
 	    return average;
 	}
+	else{
+		int[][] custom = {};//cooperate
+	    return custom;
+    }
     }
 }

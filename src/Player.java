@@ -341,9 +341,11 @@ public class Player {
      * 
      * @param newRule (int[]) list of parameters representing rule specifications
      */
-    public void addRuleAndString(int[] newRule){
+    public boolean addRuleAndString(int[] newRule){
 	String newRuleString;
-	
+	if (ruleCount==size){
+		return false;
+	}
 	//this is to make sure our priority is set correctly
 	if (newRule[0]>ruleCount){
 		newRule[0]=ruleCount;
@@ -384,12 +386,7 @@ public class Player {
 	    }
 		updateRuleString();
 	}
-	//		System.out.println("Rule Added");
-	//		for (int i=0;i<ruleCount;i++){
-	//			System.out.println("Rule "+i+": "+rules[i]);
-	//			System.out.println("Rule "+i+": "+ruleString[i]);
-	//		}
-	//		System.out.println("RuleCount: "+ruleCount);
+	return true;
     }
 	
     /**
@@ -397,24 +394,39 @@ public class Player {
      * 
      * @param i (int) index of rule to be removed
      */
-    public void removeRule(int i){
-	rules[i] = null;
-	ruleString[i] = null;
-	for (int j=i;j<rules.length;j++){
-	    if (rules[j+1]==null || j+1==rules.length){
-		rules[j]=null;
-		ruleString[j]=null;
-		ruleCount--;
-		break;
-	    }
-	    rules[j+1][0]--;
-	    rules[j] = rules[j+1];
-	    ruleString[j] = ruleString[j+1];		
-	}
+    public boolean removeRule(int i){
+		//System.out.println("Rule to be Deleted: "+i);
+		if (i<0 || i>=ruleCount){
+			return false;	
+		}
+		rules[i] = null;
+		ruleString[i] = null;
+		//System.out.println("ruleCount before: "+ruleCount);
+		if (ruleCount==1){
+			ruleString[0] = null;
+			rules[0]=null;	
+			ruleCount--;
+		}
+		else{
+			for (int j=i;j<rules.length;j++){
+				if (rules[j+1]==null || j+1==rules.length){
+				rules[j]=null;
+				ruleString[j]=null;
+				ruleCount--;
+				break;
+				}
+				rules[j+1][0]--;
+				rules[j] = rules[j+1];
+				ruleString[j] = ruleString[j+1];
+			}
+		}
+		updateRuleString();
+		return true;
     }
 	
 	public void updateRuleString(){
 		for (int i=0;i<ruleCount;i++){
+			rules[i][0]=i;
 			ruleString[i]=RuleFactory.getRuleString(rules[i]);	
 		}
 	}
