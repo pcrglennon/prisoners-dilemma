@@ -74,6 +74,7 @@ public class Player {
 	ignoreRules = new ArrayList();
 	points = 0;
 	curTurn = 0;
+	this.turns = turns;
 	whichRuleFired = new String[turns];
  	pointChangeHistory = new int[turns];
 	myMoves = new boolean[turns];
@@ -130,7 +131,7 @@ public class Player {
 			break;
 		    }
 		}
-		else{
+		else if (rules[i].length==2){
 		    evaluateRule1(rules[i]);
 		    break;
 		}
@@ -142,7 +143,6 @@ public class Player {
 	    move = futureMoves.poll();
 	}
 	catch(Exception e){
-	    System.out.println("Player Rules do not Cover All Cases - Next queued move is [Cooperate]");
 	    move=true;
 	    whichRuleFired[curTurn] = "None - No Rules were Applicable";
 	}
@@ -454,6 +454,8 @@ public class Player {
     }
 	
     public String getWhichRuleFiredTurn(int i){
+		if (whichRuleFired[i-1] == null)
+			return "Previous Queue";
 	return whichRuleFired[i-1];
     }
 	
